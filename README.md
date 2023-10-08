@@ -1,6 +1,8 @@
 # Project 3: DNA
 
-This is the directions document for Project 3 DNA in CompSci 201 at Duke University, Spring 2023. [This document details the workflow](https://coursework.cs.duke.edu/cs-201-spring-23/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.
+This is the directions document for Project 3 DNA in CompSci 201 at Duke University, Fall 2023.
+
+See [the details document](docs/details.md) for information on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
 
 ## Outline
 - [Background and Introduction](#project-background-and-introduction)
@@ -20,9 +22,12 @@ The simulation coded here is a simplification of the chemical process, but provi
 <details>
 <summary>Optional Historical Details</summary>
 
+This background is interesting, but not really needed to do the assignment. There are some good stories here, but if you want to get to the assignment, you can skip this section.
 [Three scientists shared the Nobel Prize](http://nobelprize.org/nobel_prizes/medicine/laureates/1978/press.html) in 1978 for the discovery of restriction enzymes. They're also an essential part of the process called [PCR polymerase chain reaction](http://en.wikipedia.org/wiki/Polymerase_chain_reaction) which is one of the most significant discoveries/inventions in chemistry and for which Kary Mullis won the Nobel Prize in 1993.
 
 Kary Mullis, the inventor of PCR, is an interesting character. To see more about him see this archived copy of a [1992 interview in Omni Magazine](http://web.archive.org/web/20010121194200/http://omnimag.com/archives/interviews/mullis.html) or his [personal website](http://karymullis.com/) which includes information about his autobiography Dancing Naked in the Mind Field, though you can read this free [Nobel autobiography](https://www.nobelprize.org/prizes/chemistry/1993/mullis/biographical/) as well.
+
+The simulation is a simplification of the chemical process, but provides an example of the utility of linked lists in implementing a data structure. The linked list code you'll write and reason about is an example of a chunk list.
  
 </details>
 
@@ -36,7 +41,7 @@ Two relatively straightforward implementations of the `IDnaStrand` interface are
 
 ## Part 1: Running DNABenchmark, Profiling, Analysis
 
-You can do this Part 1 without writing any linked list code. We encourage you do this before starting on Part 2 of the assignment where you will program a linked list.
+You can do this Part 1 without writing any linked list code. We encourage you do this before starting on Part 2 of the assignment where you will program a linked list. *There is a bonus for submitting timing and analysis of Part 1 before Fall Break!*
 
 ### `cutAndSplice` Simulation Complexity with `StringStrand` an `StringBuilderStrand`
 
