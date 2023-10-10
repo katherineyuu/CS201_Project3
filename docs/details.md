@@ -1,4 +1,4 @@
-#Details for P3 DNA/LinkStrand
+# Details for P3 DNA/LinkStrand
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
