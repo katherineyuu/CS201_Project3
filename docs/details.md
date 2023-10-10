@@ -1,5 +1,4 @@
-
-# Details for P3 DNA/LinkStrand
+#Details for P3 DNA/LinkStrand
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
@@ -10,7 +9,7 @@ We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](ht
 
 **[This document details the workflow](https://coursework.cs.duke.edu/201fall23/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully this first time working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained in below.
 
-## DNA strands and the Starter Code
+##DNA strands and the Starter Code
 
 For the purposes of this project, DNA is represented as a sequence of characters, specifically `a`, `c`, `g`, and `t` for the four chemical bases of DNA. There can be a *lot* of these bases in a DNA sequence, so efficiency matters when dealing with DNA data computationally. This project includes a `data/` folder containing two data files: `ecoli.txt` and `ecoli_small.txt`, which represent the genetic information of ecoli - there are over 4.6 million bases in the full sequence in `ecoli.txt` and over 320 thousand in the `ecoli_small.txt` subsequence.
 
@@ -18,7 +17,7 @@ To get started you should read the comments in the `IDnaStrand` interface to und
 
 Two relatively straightforward implementations of the `IDnaStrand` interface are provided in the starter code. `StringStrand` represents a DNA sequence as a simple String. `StringBuilderStrand` represents a DNA sequence as a  [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html). You can look at these two classese to see simple and correct (but not necessarily efficient) implementations of the functionality specified in the `IDnaStrand` interface.
 
-## Complexity of cutAndSplice
+##Complexity of cutAndSplice
 
 The method `cutAndSplice` is not a mutator. It starts with a strand of DNA and creates a new strand by finding each and every occurrence of a restriction enzyme like `“gaattc”` and replacing this enzyme by a specified splicee -- another strand of DNA. If `dna` represents the strand `"cgatcctagatcgg"` then the call 
 
@@ -43,7 +42,7 @@ Note that if the original strand has size N, then the new strand has size N + b(
 
 The runtime and memory complexity for `cutAndSplice` can be expressed as a function of N, b, and S. The complexity also depends on the implementation used for the `IDnaStrand` interface. Of particular importance for the runtime complexity is the efficiency of the `append` method, which you will note is called repeatedly by `cutAndSplice`. For the memory complexity, the question is how the implementation represents the resulting recombinant Strand.
 
-## Running DNABenchmark
+##Running DNABenchmark
 
 You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file. Note that the `StringStrand` class may take several seconds to run on `ecoli_small.txt`. `StringBuilderStrand` can scale to `ecoli.txt`, but you may not want to run `StringStrand` on the larger data set as it may take several minutes to run.
 
@@ -74,7 +73,7 @@ StringStra:   2,561,280      10,000     6,159,120       322       360
 StringStra:   5,122,560      10,000    12,318,240     1,449       720
 ```
 
-### StringBuilderStrand DNABenchmark Example Results
+###StringBuilderStrand DNABenchmark Example Results
 
 ```
 dna length = 320,160
