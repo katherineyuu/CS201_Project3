@@ -287,7 +287,7 @@ would result in returning a new strand of DNA in which each occurrence of the en
 For this example, the `LinkStrand` result is diagrammed below.
 
 <div align="center">
-  <img src="figures/link-cutsplice.png">
+  <img width="300" src="figures/link-cutsplice.png">
 </div>
 
 Each time the original strand, a single string, is cut/spliced a new node is created. The new nodes for the `splicee` can all have `String info` referencing the same `String` object in memory, as shown in the diagram for the second and fourth nodes. These represent the first and second occurrences of `"gat"`, respectively. Note that this means `LinkStrand` only needs to represent the `splicee` string once, however many times it is being spliced in / however many breaks there are.
