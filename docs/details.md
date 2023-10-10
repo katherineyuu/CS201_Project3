@@ -285,4 +285,26 @@ However, *you'll need to write code to deal with calls that aren't "in order".* 
 
 </details>
 
+## Complexity of LinkStrand method `cutAndSplice`
+
+ Complexity of cutAndSplice with LinkStrand
+
+In an earlier example, if `dna` represents the strand `"cgatcctagatcgg"` then the call 
+
+```java
+dna.cutAndSplice("gat", "gggtttaaa")
+```
+
+would result in returning a new strand of DNA in which each occurrence of the enzyme/strand `"gat"` in the object `dna` is replaced by the splice, `"gggtttaaa"`. 
+
+For this example, the `LinkStrand` result is diagrammed below.
+
+<div align="center">
+  <img src="figures/link-cutsplice.png">
+</div>
+
+Each time the original strand, a single string, is cut/spliced a new node is created. The new nodes for the `splicee` can all have `String info` referencing the same `String` object in memory, as shown in the diagram for the second and fourth nodes. These represent the first and second occurrences of `"gat"`, respectively. Note that this means `LinkStrand` only needs to represent the `splicee` string once, however many times it is being spliced in / however many breaks there are.
+
+This diagram represents the final `LinkStrand` object after a cut-and-splice operation. That strand is created by the `default cutAndSplice` implementation that calls `toString`, `getInstance`, and `append` which in `LinkStrand` ultimately result in a sequence of nodes as shown here --- mostly because of how `append` works.
+
 
