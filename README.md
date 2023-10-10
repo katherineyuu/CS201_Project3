@@ -110,9 +110,11 @@ The following questions refer to the parameters:
 - S: the size of the `splicee`.  
 
 Several questions refer to the runtime complexity of the `cutAndSplice` method. You may assume the following about this method:
-- The `split` method is O(N).
+- The loop that searches for occurrences of `enzyme` using `indexOf` is O(N) for a strand with N nucleotides/length == N.
 - The size of the enzyme is negligibly small, i.e., you can ignore subtracting the size of the enzymes from the length/runtime of the results.
-- The fragments are all approximately the same length, roughly N/b.
+- The fragments of the original strand between each added splicee are all approximately the same length, roughly N/b.
+
+Note that given these assumptions the original strand has length N, and the newly constructed strand has length N + bS, since each of b neglibly small occurrences of `enzyme` are replaced by a `splicee` whose size is S. Simply appending/concatenating a String of size S to a `StringBuilder` b times will take runtime O(bS) given what we've discussed in class about how StringBuilder works.  However, as we discussed in class, appending a String S to a `String` b times results in creating Strings S, SS, SSS, SSS, and so on (ignoring what comes between the splicees for now). This happens b times, so the last String has b occurrences of S and the total runtime is SSS..S (b times) so the total time to create all strings is (1+2+...+b)S which is O(b<sup>2</sup>S). When `LinkStrand` is used, be attentative to the diagram **at the end of [the details document](docs/details.md) document for information** that will help you reason about the runtime and the storage used.
 
 **Question 1:** What is the big O asymptotic runtime complexity of `cutAndSplice` when using `StringStrand`, in terms of N, b, and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting and discussing your results from running `DNABenchmark`. Do you empirical results match your theoretical expectations? Briefly explain.
 
@@ -124,8 +126,27 @@ Several questions refer to the runtime complexity of the `cutAndSplice` method. 
 
 **Question 5:** If each character of a `String` takes 1 byte of memory to store, and each reference to a node takes 8 bytes of memory to store, about about how much total memory is necessary to store the result of a `cutAndSplice` operation on a `LinkStrand` object? Express your answer in terms of N, b, and S. Briefly explain your answer, refereincing the implementation of `LinkStrand`. 
 
+**Question 6:** Read [this obituary of Kary Mullis, the inventor of PCR](https://cen.acs.org/people/obituaries/Kary-Mullis-dies-age-74/97/web/2019/08). Write four-six sentences/a paragraph reacting to both his accomplishments and his arguably outlandish views and practices.
+
 ## Submitting and Grading 
 
-You will submit the assignment on Gradescope. You can access Gradescope through the tab on Sakai. Please take note that changes/commits on GitLab are NOT automatically synced to Gradescope. You are welcome to submit as many times as you like, only the most recent submission will count for a grade.
+You will submit the assignment on Gradescope. Please take note that changes/commits on GitLab are NOT automatically synced to Gradescope. You are welcome to submit as many times as you like, only the most recent submission will count for a grade.
 
 Don't forget to upload a PDF for the analysis part of this assignment and mark where you answer each question. This is a separate submission in Gradescope.
+
+### Grading
+
+
+| Points | Grading Criteria |
+| ------ | ------ |
+| 16 | Code for LinkStrand. This includes 4 for correct and efficient implementation of .charAt method, as well as 2 for API consistency. |
+| 12 | Analysis questions answered. UTAs will grade and comment on this.  |
+| 2 | video of starting coding (for Part II)|
+
+We will map total points you earn to scores as follows. For example, 24 is an A- and 30 is an A+.
+- 24-30:  A
+- 18-23:  B
+- 12-17:  C
+- 6-11:  D
+
+
