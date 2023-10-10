@@ -4,6 +4,20 @@ This is the directions document for Project 3 DNA in CompSci 201 at Duke Univers
 
 See [the details document](docs/details.md) for information on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
 
+## Overview
+
+Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can refer to sections later in this write-up. 
+
+You'll be developing `LinkStrand`, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a `String` or `StringBuilde`r as you will see/demonstrate in your empirical timing benchmarks.
+
+Here are the major parts of the assignment.
+1. In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you will run the benchmarking program before you write code as part of answering questions in the analysis section.
+2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information rather than a `String` or `StringBuilder`.
+	1. You'll create an inner `Node` class with instance variables `myFirst` and `myLast` and you'll then implement all the methods in the `IDnaStrand` interface, _**testing them using supplied JUnit tests.**_ 
+	2. When you create the class and edit it so that it implements IDnaStrand, VSCode can fill in stub methods that you will implement. There are two constructors and several methods. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods do. 
+3. In [Part 3](#part-3-analysis-and-more-benchmarking) Rerun the benchmarking program `DNABenchmark` with the newly coded `LinkStrand` class - note the efficiency and memory of the program compared to when you ran the program with StringStrand and StringBuilderStrand.
+4. You'll make changes to `DNABenchmark` to run more benchmark code to answer questions in the analysis.
+
 ## Outline
 - [Background and Introduction](#project-background-and-introduction)
 - [Part 1: Running DNABenchmark, Profiling, Analysis](#part-1-running-dnabenchmark-profiling-analysis)
@@ -33,107 +47,23 @@ The simulation is a simplification of the chemical process, but provides an exam
 
 ### DNA strands and the Starter Code
 
-For the purposes of this project, DNA is represented as a sequence of characters, specifically `a`, `c`, `g`, and `t` for the four chemical bases of DNA. There can be a *lot* of these bases in a DNA sequence, so efficiency matters when dealing with DNA data computationally. This project includes a `data/` folder containing two data files: `ecoli.txt` and `ecoli_small.txt`, which represent the genetic information of ecoli - there are over 4.6 million bases in the full sequence in `ecoli.txt` and over 320 thousand in the `ecoli_small.txt` subsequence.
+The [the details document](docs/details.md) has information about how DNA strands are modeled in this assignment. Read that document for
+an explanation of the classes and the `IDndStrand` interface.
 
-To get started you should read the comments in the `IDnaStrand` interface to understand what functionality implementations of that interface should provide with respect to manipulating DNA data. You will note that some methods in the interface have a `default` implementation provided, but most do not -- these are the methods you will be implementing. The `default` method `cutAndSplice` is the one that is benchmarked by the code provided in `DNABenchmark`, see [Part 1](#part-1-running-dnabenchmark-profiling-analysis) for a discussion of that method and its complexity.
-
-Two relatively straightforward implementations of the `IDnaStrand` interface are provided in the starter code. `StringStrand` represents a DNA sequence as a simple String. `StringBuilderStrand` represents a DNA sequence as a  [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html). You can look at these two classese to see simple and correct (but not necessarily efficient) implementations of the functionality specified in the `IDnaStrand` interface.
 
 ## Part 1: Running DNABenchmark, Profiling, Analysis
 
-You can do this Part 1 without writing any linked list code. We encourage you do this before starting on Part 2 of the assignment where you will program a linked list. *There is a bonus for submitting timing and analysis of Part 1 before Fall Break!*
+You can do this Part 1 _without writing any linked list code_. We encourage you do this before starting on Part 2 of the assignment where you will program a linked list. *There is a bonus for submitting timing and analysis of Part 1 before Fall Break!*
 
 ### `cutAndSplice` Simulation Complexity with `StringStrand` an `StringBuilderStrand`
 
-The `main` method of `DNABenchmark` simulates a DNA splicing experiment represented by the `cutAndSplice` method (implemented in `IDnaStrand` with complexity that depends on which implementation of the interface is being used). The expandable section below describes what this method simulates and how to reason about its complexity using the provided starter implementations `StringStrand` and `StringBuilderStrand`.
+The `main` method of `DNABenchmark` simulates a DNA splicing experiment represented by the `cutAndSplice` method (implemented in `IDnaStrand` with complexity that depends on which implementation of the interface is being used). The [the details document](docs/details)  describes what this method simulates and how to reason about its complexity using the provided starter implementations `StringStrand` and `StringBuilderStrand`.
 
-<details>
-<summary>Complexity of cutAndSplice</summary>
-
-The method `cutAndSplice` is not a mutator. It starts with a strand of DNA and creates a new strand by finding each and every occurrence of a restriction enzyme like `“gaattc”` and replacing this enzyme by a specified splicee -- another strand of DNA. If `dna` represents the strand `"cgatcctagatcgg"` then the call 
-
-```java
-dna.cutAndSplice("gat", "gggtttaaa")
-```
-
-would result in returning a new strand of DNA in which each occurrence of `"gat"` in `dna` is replaced by `"gggtttaaa"` -- as shown in the diagram below where the original strand is shown first, with the enzyme `"gat"` shaded in blue and the splicee `"gggtttaaa"` shaded in green. 
-
-<div align="center">
-  <img src="figures/splice.png">
-</div>
-
-The diagram illustrates how `cutAndSplice` works with both `StringStrand` and `StringBuilderStrand`. Each is a strand of 14 characters in which the restriction enzyme `"gat"` occurs twice, is replaced by `"gggtttaaa"`, resulting in creating and returning a new strand that contains 26 characters.
-
-Note that if the original strand has size N, then the new strand has size N + b(S-E) where b is the number of breaks, or occurrences of the enzyme, S is the length of the splicee and E is the length of the enzyme. If we assume the splicee is large, as it will be when benchmarking, we can ignore E and this becomes approximately N + bS, the size of the recombinant new strand in terms. 
-
-The runtime and memory complexity for `cutAndSplice` can be expressed as a function of N, b, and S. The complexity also depends on the implementation used for the `IDnaStrand` interface. Of particular importance for the runtime complexity is the efficiency of the `append` method, which you will note is called repeatedly by `cutAndSplice`. For the memory complexity, the question is how the implementation represents the resulting recombinant Strand.
-
-</details>
 
 ### Benchmarking `StringStrand` and `StringBuilderStrand`
 
-You'll need to run the `main` method of the `DNABenchmark` twice, once for the `StringStrand` implementation of the `IDnaStrand` interface and once for the `StringBuilderStrand` implementation. By default, the program will benchmark the runtime of `cutAndSplice` on the `ecoli_small.txt` dataset. Make sure to save your results for answering analysis questions later. Details in the expandable section below.
+You'll need to run the `main` method of the `DNABenchmark` twice, once for the `StringStrand` implementation of the `IDnaStrand` interface and once for the `StringBuilderStrand` implementation. By default, the program will benchmark the runtime of `cutAndSplice` on the `ecoli_small.txt` dataset. Make sure to save your results for answering analysis questions later. Details in [the details document](docs/details.md)
 
-<details>
-<summary>Expand for details on running DNABenchmark</summary>
-You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file. Note that the `StringStrand` class may take several seconds to run on `ecoli_small.txt`. `StringBuilderStrand` can scale to `ecoli.txt`, but you may not want to run `StringStrand` on the larger data set as it may take several minutes to run.
-
-The main method benchmarks the average time (over several trials)  in milliseconds that it takes to run `cutAndSplice` for different values of N (the size of the original dna strand), b (the number of breaks / occurrences of the `enzyme`), and S (the size of the `splicee`). It also shows the size of the resulting recombininant new Strand, labeled as `recomb`, which is roughly equal to N + bS. 
-
-First it performs several runs increasing S while holding the other values constant. Then it performs several runs increasing N and b while holding S constant. Example runs from an instructor's computer on `ecoli_small.txt` are shown below (note that your timings may differ but should show similar trends).
-</details>
-
-<details>
-<summary>StringStrand DNABenchmark Example Results</summary>
-
-```
-dna length = 320,160
-cutting at enzyme gaattc
-----------------------------------------------------------------------
-Class             dna,N   splicee,S        recomb  time(ms)  breaks,b
-----------------------------------------------------------------------
-StringStra:     320,160      10,000       769,890        13        45
-StringStra:     320,160      20,000     1,219,890        13        45
-StringStra:     320,160      40,000     2,119,890        14        45
-StringStra:     320,160      80,000     3,919,890        26        45
-StringStra:     320,160     160,000     7,519,890        49        45
-StringStra:     320,160     320,000    14,719,890       105        45
-StringStra:     320,160     640,000    29,119,890       239        45
-StringStra:     320,160   1,280,000    57,919,890       481        45
-StringStra:     320,160      10,000       769,890         6        45
-StringStra:     640,320      10,000     1,539,780        21        90
-StringStra:   1,280,640      10,000     3,079,560        84       180
-StringStra:   2,561,280      10,000     6,159,120       322       360
-StringStra:   5,122,560      10,000    12,318,240     1,449       720
-```
-
-</details>
-
-<details>
-<summary>StringBuilderStrand DNABenchmark Example Results</summary>
-
-```
-dna length = 320,160
-cutting at enzyme gaattc
-----------------------------------------------------------------------
-Class             dna,N   splicee,S        recomb  time(ms)  breaks,b
-----------------------------------------------------------------------
-StringBuil:     320,160      10,000       769,890         1        45
-StringBuil:     320,160      20,000     1,219,890         1        45
-StringBuil:     320,160      40,000     2,119,890         1        45
-StringBuil:     320,160      80,000     3,919,890         1        45
-StringBuil:     320,160     160,000     7,519,890         2        45
-StringBuil:     320,160     320,000    14,719,890         3        45
-StringBuil:     320,160     640,000    29,119,890         6        45
-StringBuil:     320,160   1,280,000    57,919,890         8        45
-StringBuil:     320,160      10,000       769,890         1        45
-StringBuil:     640,320      10,000     1,539,780         1        90
-StringBuil:   1,280,640      10,000     3,079,560         3       180
-StringBuil:   2,561,280      10,000     6,159,120         7       360
-StringBuil:   5,122,560      10,000    12,318,240        15       720
-```
-
-</details>
 
 ## Part 2: Programming LinkStrand
 
