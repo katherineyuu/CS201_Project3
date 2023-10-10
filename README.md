@@ -2,11 +2,11 @@
 
 This is the directions document for Project 3 DNA in CompSci 201 at Duke University, Fall 2023.
 
-_See [the details document](docs/details.md) for information_ on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
+**See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
 
 ## Overview
 
-Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can *refer to sections in [the details document](docs/details.md)*.
+Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can **refer to sections in [the details document](docs/details.md)**.
 
 You'll be developing `LinkStrand`, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a `String` or `StringBuilde` as you will see/demonstrate in your empirical timing benchmarks.
 
@@ -47,7 +47,7 @@ The simulation is a simplification of the chemical process, but provides an exam
 
 ### DNA strands and the Starter Code
 
-*The [the details document](docs/details.md#DNA-strands-and-the-Starter-Code) has information* about how DNA strands are modeled in this assignment. Read that document for an explanation of the classes and the `IDndStrand` interface. It's important to understand what a Strand is and how
+**The [the details document](docs/details.md#DNA-strands-and-the-Starter-Code) has information** about how DNA strands are modeled in this assignment. Read that document for an explanation of the classes and the `IDndStrand` interface. It's important to understand what a Strand is and how
 different classes model DNA by implementing the `IDnaStrand` interface.
 
 
@@ -62,7 +62,7 @@ The `main` method of `DNABenchmark` simulates a DNA splicing experiment represen
 
 ### Benchmarking `StringStrand` and `StringBuilderStrand`
 
-You'll need to run the `main` method of the `DNABenchmark` twice, once for the `StringStrand` implementation of the `IDnaStrand` interface and once for the `StringBuilderStrand` implementation. By default, the program will benchmark the runtime of `cutAndSplice` on the `ecoli_small.txt` dataset. Make sure to save your results for answering analysis questions later. *Details in [the details document](docs/details.md) describe more* of the benchmarking.
+You'll need to run the `main` method of the `DNABenchmark` twice, once for the `StringStrand` implementation of the `IDnaStrand` interface and once for the `StringBuilderStrand` implementation. By default, the program will benchmark the runtime of `cutAndSplice` on the `ecoli_small.txt` dataset. Make sure to save your results for answering analysis questions later. **Details in [the details document](docs/details.md) describe more** of the benchmarking.
 
 
 ## Part 2: Programming LinkStrand
@@ -83,12 +83,12 @@ VSCode will then indicate that the code will not compile. If you select the ligh
   <img src="figures/vscode_stubs.png" width="300", height="150">
 </div>
  
-In addition, you need to implement two constructors *as described in the [the details document](docs/details.md#Part-2:-Programming-LinkStrand)*.
+In addition, you need to implement two constructors **as described in the [the details document](docs/details.md#Part-2:-Programming-LinkStrand)**.
 The constructors and methods don't need to be implemented in the order shown there, but the simpler methods are listed first. These methods are tested in the `TestStrand` class.
 
 You should test each method as you implement it using the `TestStrand` JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. _The tests will NOT work correctly_ until you've implemented `LinkStrand.toString()`.
 
-*See [the details document](docs/details.md#Part-2:-Programming-LinkStrand) document for information* on the constructors and methods
+**See [the details document](docs/details.md#Part-2:-Programming-LinkStrand) document for information** on the constructors and methods
 you'll need to implement and test.
 
 ## Part 3: More Benchmarking and Analysis
@@ -97,7 +97,7 @@ In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you benchmarked the
 
 Now that you have completed your implementation of `LinkStrand`, you should run the  `DNABenchmark` using the `LinkStrand` implementation of the `IDnaStrand` interface. Again use the `ecoli_small.txt` file. Remember to save your results. Once you finish, you should have a total of 3 benchmark results: one for each of the three implementations (`StringStrand`, `StringBuilderStrand`, and `LinkStrand`).
 
-Recall that `DNABenchmark` simulates a splicing experiment with DNA data. The complexity of the `StringStrand` and `StringBuilderStrand` implementations was discussed earlier in [Part 1](#part-1-running-dnabenchmark-profiling-analysis). Expand below for some discussion of the complexity using the `LinkStrand` implementation. *See [the details document](docs/details.md) for a detailed explanation of the complexity* of the `LinkStrand` implementation of `cutAndSplice`. 
+Recall that `DNABenchmark` simulates a splicing experiment with DNA data. The complexity of the `StringStrand` and `StringBuilderStrand` implementations was discussed earlier in [Part 1](#part-1-running-dnabenchmark-profiling-analysis). Expand below for some discussion of the complexity using the `LinkStrand` implementation. **See [the details document](docs/details.md) for a detailed explanation of the complexity** of the `LinkStrand` implementation of `cutAndSplice`. 
 
 
 ### Analysis Questions
