@@ -2,7 +2,7 @@
 
 This is the directions document for Project 3 DNA in CompSci 201 at Duke University, Fall 2023.
 
-*See [the details document](docs/details.md) for information* on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
+_See [the details document](docs/details.md) for information_ on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
 
 ## Overview
 
