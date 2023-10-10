@@ -8,7 +8,7 @@ See [the details document](docs/details.md) for information on using Git, starti
 
 Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can refer to sections later in this write-up. 
 
-You'll be developing `LinkStrand`, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a `String` or `StringBuilde`r as you will see/demonstrate in your empirical timing benchmarks.
+You'll be developing `LinkStrand`, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a `String` or `StringBuilde` as you will see/demonstrate in your empirical timing benchmarks.
 
 Here are the major parts of the assignment.
 1. In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you will run the benchmarking program before you write code as part of answering questions in the analysis section.
@@ -47,7 +47,7 @@ The simulation is a simplification of the chemical process, but provides an exam
 
 ### DNA strands and the Starter Code
 
-The [the details document](docs/details.md) has information about how DNA strands are modeled in this assignment. Read that document for
+The [the details document](docs/details.md#DNA strands and the Starter Code) has information about how DNA strands are modeled in this assignment. Read that document for
 an explanation of the classes and the `IDndStrand` interface.
 
 
