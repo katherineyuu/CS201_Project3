@@ -104,8 +104,7 @@ The constructors and methods don't need to be implemented in the order shown the
 ### 1. `LinkStrand` State, Constructors and `initialize` Method
 Implement two constructors: one with no parameters (the default constructor) and one with a `String` parameter. The constructors work by calling the required initialize method. Refer to `StringStrand.java` for an example to adapt. Implement the initialize method that initializes the `LinkStrand` object with a `String`.
 
-<details>
-<summary>Details on LinkStrand State, Constructors and initialize Method</summary>
+#### Details on LinkStrand State, Constructors and initialize Method
 
 You should start by defining a `private` inner `Node` class (that is, defined inside of the `LinkStrand` class) that defines a node in the `LinkStrand`. Each such node should store at least a `String` (referred to as `info` in this writeup) and a reference to the next node in the list. You will also need to define a constructor for your inner class.
 
@@ -143,8 +142,6 @@ The `initialize` method will initialize instance variables and maintain the clas
 in `initialize` and make sure that both `myFirst` and `myLast` reference/point to this Node. That will ensure part of the class invariant
 is true.
 
-</details>
-
 ### 2. Implementing the `getInstance` and `size` Methods
 Implement the `getInstance` method that works similarly to what you see in `StringStrand` and `StringBuilder` strand. This must return a `LinkStrand` object. 
 
@@ -153,8 +150,7 @@ Implement `size`. This should return `mySize` which ensures it runs in O(1) time
 ### 3. Implementing the `append` and `getAppendCount` Methods 
 Implement `append` which creates one new node and updates instance variables to maintain class invariants as described in the details below. Implement `getAppendCount`. This should be a single line and must run in `O(1)` time.
 
-<details>
-<summary>Details on Implementing the append and getAppendCount Methods</summary>
+#### Details on Implementing the append and getAppendCount Methods
 
 The `append` method should add one new node to the end of the internal linked list and update state to maintain the invariant. For example, suppose that these two statements are both executed:
 
@@ -180,14 +176,13 @@ Note that maintaining the class invariant after this call to append would requir
 Note that `.append` returns an `IDnaStrand` object. This is the object that was just modified/appended to. However, the method append does not create a new `IDnaStrand` object. The `.append` method is a mutator -- it changes the internal state of the `IDnaStrand` object on which it's invoked, and then returns this `LinkStrand` object itself. Look carefully at both `StringStrand` and `StringBuilderStand` strand to see what to return.
 
 Note that after implementing `append`, the method `getAppendCount` should return the correct result, the value of instance variable `myAppends` that's maintained by the class invariants and initialized/updated in `initialize` and `append`.
-</details>
+
 
 
 ### 4. Implementing the `toString` Method
 Implement `toString`. This returns the `String` representation of the `LinkStrand` by looping over nodes and appending their values to a `StringBuilder` object. The method should run in `O(N)` time for a stand with `N` nucleotides.
 
-<details>
-<summary>Details on Implementing the toString Method</summary>
+#### Details on Implementing the toString Method
 
 The `toString` method returns the `String` representation of the entire DNA strand. Conceptually this is a concatenation of the `String` values stored in each node.
 
@@ -197,13 +192,10 @@ For more guidance on `StringBuilder`, see the [Java Documentation here](https://
 
 You should be able to test all the methods implemented to this point using the class `TestStrand`. The testing methods in `TestStrand` rely on `.toString` being correct, so after implementing `.toString` you may find errors in your other methods as a result of testing.
 
-</details>
-
 ### 5. Implementing the `reverse` Method
 Implement `reverse` to return a new `LinkStrand` object that's the reverse of the object on which it's called. **This method is not a mutator, it creates a new `LinkStrand`.**
 
-<details>
-<summary>Details on Implementing the reverse Method</summary>
+#### Details on Implementing the reverse Method
 
 This method creates a new `LinkStrand` object that is the reverse of the object on which it's called. The reverse of `"cgatccgg"` is `"ggcctagc"`. This method returns a new strand; **it does not alter the strand on which it's called**, i.e., it's not a mutator. 
 
@@ -224,13 +216,10 @@ The easiest way (and an efficient way) to reverse a `String` in Java is to use [
 Be sure to update all instance variables of the new reversed `LinkStrand` you are creating to be correct before it is returned. You may need to do this
 directly by assigning values to the instance variables of the new `LinkStrand` object.
 
-</details>
-
 ### Implementing the `charAt` Method
 Implement `charAt` which returns the character at a specific index. This method requires new instance variables *to meet performance characteristics.*
 
-<details>
-<summary>Details on Implementing the charAt Method</summary>
+#### Details on Implementing the charAt Method
 
 This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the `index`-th character is found. Note that you will need to loop *both* through the nodes, *and* through the characters within each node. 
 
@@ -282,8 +271,6 @@ You only need to implement `charAt`, then *all the code described and shown abov
 
 ### Order of Calls Matters
 However, *you'll need to write code to deal with calls that aren't "in order".* If the call `.charAt(100)` is followed by the call `.charAt(30)` you'll need to start at the beginning of the internal linked list to find the character with index 30. If `.charAt(100)` is followed by `.charAt(350)` you won't start at the first node, but continue with the values stored in the instance variables.
-
-</details>
 
 ## Complexity of LinkStrand method `cutAndSplice`
 
