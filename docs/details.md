@@ -50,7 +50,7 @@ The main method benchmarks the average time (over several trials)  in millisecon
 
 First it performs several runs increasing S while holding the other values constant. Then it performs several runs increasing N and b while holding S constant. Example runs from an instructor's computer on `ecoli_small.txt` are shown below (note that your timings may differ but should show similar trends).
 
-### StringStrand DNABenchmark Example Results
+###StringStrand DNABenchmark Example Results
 
 ```
 dna length = 320,160
