@@ -14,17 +14,34 @@ public interface IDnaStrand extends Iterable<Character>{
 	 * @param splicee is the pattern/strand replacing each occurrence of enzyme
 	 * @return the new strand leaving the original strand unchanged.
 	 */
+
 	default IDnaStrand cutAndSplice(String enzyme, String splicee) {
+		int pos = 0;
+		int start = 0;
 		String search = this.toString();
-		IDnaStrand ret = getInstance("");
-		// Splits dna strand by enzyme, leaving empty strings
-		// in case of leading, repeating, or trailing enzymes
-		String[] fragments = search.split(enzyme+"{1}", -1);
-		for (int i=0; i<fragments.length-1; i++) {    // splicing in
-			ret.append(fragments[i]);
+		boolean first = true;
+		IDnaStrand ret = null;
+
+		while ((pos = search.indexOf(enzyme, start)) >= 0) {
+			if (first) {
+				ret = getInstance(search.substring(start, pos));
+				first = false;
+			} else {
+				ret.append(search.substring(start, pos));
+
+			}
+			start = pos + enzyme.length();
 			ret.append(splicee);
 		}
-		ret.append(fragments[fragments.length-1]);    // adding last fragment
+		if (start < search.length()) {
+			// NOTE: This is an important special case! If the enzyme
+			// is never found, return an empty String.
+			if (ret == null) {
+				ret = getInstance("");
+			} else {
+				ret.append(search.substring(start));
+			}
+		}
 		return ret;
 	}
 

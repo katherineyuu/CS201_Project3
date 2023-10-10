@@ -25,12 +25,13 @@ public class DNABenchmark {
 	private static final int SPLICEE_ROWS = 8;			// rows of spliceeBenchmark data
 	private static final int SOURCE_ROWS = 5;			// rows of sourceBenchmark data
 	private static final int TRIALS = 10;				// number of trials per run
+	private static final int MEMORY_TRIALS = 2;
 	
 	private static String mySource;
 
 	public static void main(String[] args)
 			throws Exception {
-		// Can set the data file to benchmark here
+		// Set the data file to benchmark here
 		String fileName = "data/ecoli_small.txt";
 		File file = new File(fileName);
 		mySource = dnaFromScanner(new Scanner(file));
@@ -38,6 +39,17 @@ public class DNABenchmark {
 		printHeader();
 		spliceeBenchmark();
 		sourceBenchmark();
+		System.out.println("--------------- Memory Exhaustion Benchmark ---------------");
+
+		/**
+		 *  Set the large data file to benchmark here
+		fileName = "data/ecoli.txt";
+		file = new File(fileName);
+		mySource = dnaFromScanner(new Scanner(file));
+
+		System.out.printf("Class\t%23s\t%12s\ttime\t%s\n", "splicee", "recomb","appends");
+		exhaustMemoryBenchmark();
+		**/
 	}
 
 	/**
@@ -151,5 +163,59 @@ public class DNABenchmark {
 			"dna,N", "splicee,S", "recomb", "time(ms)", "breaks,b");
 			System.out.printf("------------------------------------");
 			System.out.printf("----------------------------------\n");
+	}
+
+	public static void exhaustMemoryBenchmark() throws Exception {
+		int startPower = 8;
+		int endPower = 32;
+		boolean firstRun = true;
+		for (int j = startPower-1; j <= endPower; j++) {
+			StringBuilder b = new StringBuilder("");
+			int spSize = (int) Math.pow(2, j);
+			for (int k = 0; k < spSize; k++) {
+				b.append("c");
+			}
+			String splicee = b.toString();
+			String results = strandSpliceBenchmarkII(ENZYME, splicee, strandType);
+			if (! firstRun) {
+				System.out.println(results);
+			}
+			else {
+				firstRun = false;
+			}
+		}
+
+	}
+
+	private static String strandSpliceBenchmarkII(String enzyme, String splicee, String className)  throws Exception {
+		String dna = mySource;
+		IDnaStrand strand;
+		try {
+			strand = (IDnaStrand) Class.forName(className).getDeclaredConstructor().newInstance();
+			strand.initialize(dna);
+			long length = strand.size();
+			IDnaStrand recomb = strand.cutAndSplice(enzyme, splicee);
+			long length2 = strand.size();
+			if (length != length2) {
+				System.err.printf("trouble splicing %d strand to %d\n", length, length2);
+			}
+			long recLength = recomb.size();
+			double time = 0;
+			for (int i = 0; i < MEMORY_TRIALS; i++) {
+				Thread thread = new Thread(() -> {
+					strand.cutAndSplice(enzyme, splicee);
+				});
+				double start = System.nanoTime();
+				thread.run();
+				thread.join();
+				time += (System.nanoTime() - start) / TRIALS / 1e9;
+			}
+			String ret = String.format("%s:\t%,15d\t%,15d\t%1.3f\t%d", className.substring(0,10), splicee.length(), recLength, time,
+					recomb.getAppendCount());
+
+			return ret;
+		} catch (ClassNotFoundException e) {
+			return "could not create class " + className;
+		}
 	}
 }
