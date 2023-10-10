@@ -47,7 +47,7 @@ The simulation is a simplification of the chemical process, but provides an exam
 
 ### DNA strands and the Starter Code
 
-The [the details document](docs/details.md## DNA strands and the Starter Code) has information about how DNA strands are modeled in this assignment. Read that document for
+The [the details document](docs/details.md#DNA-strands-and-the-Starter-Code) has information about how DNA strands are modeled in this assignment. Read that document for
 an explanation of the classes and the `IDndStrand` interface.
 
 
