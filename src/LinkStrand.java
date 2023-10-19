@@ -90,8 +90,8 @@ public class LinkStrand implements IDnaStrand {
         }
         int characterCount = myIndex + myCurrent.info.length();
         while (myCurrent != null) {
-            if (myIndex > characterCount && myIndex < characterCount + myCurrent.info.length()) {
-                myLocalIndex = myIndex - characterCount;
+            if (characterCount > index) {
+                myLocalIndex = index - characterCount;
                 return myCurrent.info.charAt(myLocalIndex);
             }
             characterCount += myCurrent.info.length();
