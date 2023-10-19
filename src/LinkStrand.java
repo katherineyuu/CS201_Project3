@@ -29,13 +29,13 @@ public class LinkStrand implements IDnaStrand {
     public IDnaStrand getInstance(String source) {
         return new LinkStrand(source);
     }
-    
+
     public long size() {
-		return mySize;
-	}
+        return mySize;
+    }
 
     public IDnaStrand append(String dna) {
-        Node newDNA = new Node (dna, null);
+        Node newDNA = new Node(dna, null);
         myLast.next = newDNA;
         myLast = myLast.next;
         mySize += dna.length();
@@ -62,14 +62,14 @@ public class LinkStrand implements IDnaStrand {
         LinkStrand reversedStrand = new LinkStrand();
         Node current = myFirst;
 
-        while (current!= null) {
+        while (current != null) {
             StringBuilder s = new StringBuilder(current.info);
             String reversedString = s.reverse().toString();
-            Node rev = new Node(reversedString); //new node of reversed string
+            Node rev = new Node(reversedString); // new node of reversed string
             if (current == myFirst) {
                 reversedStrand.myLast = rev;
             }
-            reversedStrand.mySize += rev.info.length(); //update size
+            reversedStrand.mySize += rev.info.length(); // update size
             rev.next = reversedStrand.myFirst;
             reversedStrand.myFirst = rev;
             current = current.next;
@@ -82,8 +82,13 @@ public class LinkStrand implements IDnaStrand {
         if (index > this.mySize || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        myIndex = index;
-        int characterCount = myCurrent.info.length();
+        // if character is smaller than current index, reset the variables
+        if (myIndex < index) {
+            myIndex = 0;
+            myLocalIndex = 0;
+            myCurrent = myFirst;
+        }
+        int characterCount = myIndex + myCurrent.info.length();
         while (myCurrent != null) {
             if (myIndex > characterCount && myIndex < characterCount + myCurrent.info.length()) {
                 myLocalIndex = myIndex - characterCount;
