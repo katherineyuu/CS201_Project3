@@ -79,11 +79,11 @@ public class LinkStrand implements IDnaStrand {
     }
 
     public char charAt(int index) {
-        if (index > this.mySize || index < 0) {
+        if (index >= this.mySize || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         // if character is smaller than current index, reset the variables
-        if (myIndex < index) {
+        if (myIndex > index) {
             myIndex = 0;
             myLocalIndex = 0;
             myCurrent = myFirst;
