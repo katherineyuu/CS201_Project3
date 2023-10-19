@@ -23,9 +23,10 @@ public class LinkStrand implements IDnaStrand {
         myIndex = 0;
         myCurrent = myFirst;
         myLocalIndex = 0;
+        mySize = source.length();
     }
 
-    public LinkStrand getInstance(String source) {
+    public IDnaStrand getInstance(String source) {
         return new LinkStrand(source);
     }
     
