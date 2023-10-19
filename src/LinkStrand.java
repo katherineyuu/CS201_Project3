@@ -97,7 +97,7 @@ public class LinkStrand implements IDnaStrand {
             characterCount += myCurrent.info.length();
             myCurrent = myCurrent.next;
         }
-        return myCurrent.info.charAt(myLocalIndex);
+        return 0;
     }
 
     private class Node {
